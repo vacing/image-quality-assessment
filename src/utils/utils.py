@@ -44,6 +44,13 @@ def normalize_labels(labels):
     return labels_np / labels_np.sum()
 
 
+def calc_max_score(score_dist):
+    # print(score_dist)
+    ind = np.argmax(score_dist)
+    # print("max ind %d" % (ind))
+    return (ind+1)
+
+
 def calc_mean_score(score_dist):
     score_dist = normalize_labels(score_dist)
     return (score_dist*np.arange(1, 11)).sum()
@@ -52,3 +59,9 @@ def calc_mean_score(score_dist):
 def ensure_dir_exists(dir):
     if not os.path.exists(dir):
         os.makedirs(dir)
+
+
+if __name__ == '__main__':
+    res = load_json('../../data/TID2013/tid_labels_test.json')
+    print(type(res))
+    print(res[0])

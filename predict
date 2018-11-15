@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 
 # parse arguments
 POSITIONAL=()
@@ -45,3 +46,8 @@ DOCKER_RUN="docker run
   $DOCKER_IMAGE $BASE_MODEL_NAME /src/weights.hdf5 /src/$BASENAME_IS"
 
 eval $DOCKER_RUN
+
+
+# docker run --entrypoint entrypoints/entrypoint.predict.cpu.sh -v /home/vacingfang/cv/image-quality-assessment/src/tests/test_images/42039.jpg:/src/42039.jpg -v /home/vacingfang/cv/image-quality-assessment/models/MobileNet/weights_mobilenet_technical_0.11.hdf5:/src/weights.hdf5 nima-cpu MobileNet /src/weights.hdf5 /src/42039.jpg
+# docker run -ti -d -v /home/vacingfang/cv/image-quality-assessment/src/tests/test_images/42039.jpg:/src/42039.jpg -v /home/vacingfang/cv/image-quality-assessment/models/MobileNet/weights_mobilenet_technical_0.11.hdf5:/src/weights.hdf5 --name=nima-cpu_vac nima-cpu /bin/bash/
+

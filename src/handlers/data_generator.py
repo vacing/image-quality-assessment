@@ -9,7 +9,7 @@ class TrainDataGenerator(keras.utils.Sequence):
     '''inherits from Keras Sequence base object, allows to use multiprocessing in .fit_generator'''
     def __init__(self, samples, img_dir, batch_size, n_classes, basenet_preprocess, img_format,
                  img_load_dims=(256, 256), img_crop_dims=(224, 224), shuffle=True):
-        self.samples = samples
+        self.samples = samples  # list
         self.img_dir = img_dir
         self.batch_size = batch_size
         self.n_classes = n_classes
@@ -36,6 +36,7 @@ class TrainDataGenerator(keras.utils.Sequence):
 
     def __data_generator(self, batch_samples):
         # initialize images and labels tensors for faster processing
+        # X = np.empty((len(batch_samples),) + tuple(*(self.img_crop_dims)) + (3,))
         X = np.empty((len(batch_samples), *self.img_crop_dims, 3))
         y = np.empty((len(batch_samples), self.n_classes))
 
@@ -85,6 +86,7 @@ class TestDataGenerator(keras.utils.Sequence):
 
     def __data_generator(self, batch_samples):
         # initialize images and labels tensors for faster processing
+        # X = np.empty((len(batch_samples),) +  tuple(*self.img_load_dims) +  (3,))
         X = np.empty((len(batch_samples), *self.img_load_dims, 3))
         y = np.empty((len(batch_samples), self.n_classes))
 
